@@ -19,13 +19,14 @@ namespace LeetCodeTest.EasyProblems
         }
 
         [TestMethod]
-        public void TwoSum()
+        [DataRow(new int[] { 3, 2, 4 }, 6, new int[] { 1, 2 })]
+        [DataRow(new int[] { 11, 15, 2, 7 }, 9, new int[] { 2, 3 })]
+        [DataRow(new int[] { 3, 3 }, 6, new int[] { 0, 1 })]
+        public void TwoSum(int[] nums, int target, int[] expected)
         {
-            int[] nums = { 2, 5, 6, 7 };
-            int target = 20;
-
             var result = twoSumProblem.TwoSum(nums, target);
-            Assert.AreEqual(nums, result);
+
+            CollectionAssert.AreEquivalent(expected, result);
         }
 
 
