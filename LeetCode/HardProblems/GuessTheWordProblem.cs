@@ -64,7 +64,7 @@ namespace LeetCode.HardProblems
                     {
                         int matchingCharacters = MatchingCharacters(currentGuess, currentWords, i);
 
-                        if (matchingCharacters >= guessCount)
+                        if (matchingCharacters == guessCount)
                         {
                             newWords.Add(new WordGuess()
                             {
@@ -76,11 +76,7 @@ namespace LeetCode.HardProblems
                     }
                 }
 
-                currentWords = newWords.OrderByDescending(x=>x.count).OrderByDescending(x=>x.name).ToList();
-
-
-
-
+                currentWords = newWords.OrderByDescending(x=>x.name).ToList();
             }
             return false;
         }
