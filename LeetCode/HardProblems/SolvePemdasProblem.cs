@@ -7,7 +7,7 @@ namespace LeetCode.HardProblems
     {
         public SolvePemdasProblem() { }
 
-        public string SolvePemdas(int[] numbers, int target)
+        public List<string> SolvePemdas(int[] numbers, int target)
         {
             List<string> possibleOperators = new List<string>() { "+", "-", "*", "/" };
 
@@ -47,17 +47,27 @@ namespace LeetCode.HardProblems
                 combinations = newEquationsBuilder;
             }
 
+            List<string> answers = new List<string>();
+
+            DataTable table = new DataTable();
             foreach (string combination in combinations)
             {
-                DataTable table = new DataTable();
-                double value = Convert.ToDouble(table.Compute(combination, ""));
-                if (value == target)
+                try
                 {
-                    return combination;
+                    double value = Convert.ToDouble(table.Compute(combination, ""));
+                    if (value == target)
+                    {
+                        answers.Add(combination);
+                    }
                 }
+                catch (Exception)
+                {
+                    continue;
+                }
+
             }
 
-            return string.Empty;
+            return answers;
         }
 
         public bool SolvePemdas2(int[] numbers, int sum)

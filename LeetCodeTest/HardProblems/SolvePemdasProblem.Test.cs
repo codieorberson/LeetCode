@@ -18,12 +18,14 @@ namespace LeetCodeTest.HardProblems
             solvePemdasProblem = new SolvePemdasProblem();
         }
 
+        //5(3+2)2
         [TestMethod]
         [DataRow(new int[] { 2, 4, 2 }, 16, "2*4*2")]
+        [DataRow(new int[] { 5, 8, 3, 6 }, 20, "5*8*3/6")]
         public void SolvePempdas(int[] nums, int target, string expected)
         {
-            string actual = solvePemdasProblem.SolvePemdas(nums, target);
-            Assert.AreEqual(expected, actual);
+            List<string> actual = solvePemdasProblem.SolvePemdas(nums, target);
+            Assert.IsTrue(actual.Contains(expected));
         }
 
         [TestMethod]
