@@ -6,6 +6,20 @@
 
         public string LongestCommonPrefix(string[] words)
         {
+            Array.Sort(words);
+            string shortestWord = words[0];
+            string longestWord = words[words.Count() - 1];
+
+            for(int i = 0; i < shortestWord.Length; i++)
+            {
+                if (shortestWord[i] != longestWord[i])
+                    return shortestWord.Substring(0, i);
+            }
+            return shortestWord;
+        }
+
+        public string LongestCommonPrefix2(string[] words)
+        {
             words = words.OrderBy(x => x.Length).ToArray();
             string comparisonWord = words.ElementAt(0);
 
@@ -22,5 +36,6 @@
 
             return comparisonWord;
         }
+
     }
 }
