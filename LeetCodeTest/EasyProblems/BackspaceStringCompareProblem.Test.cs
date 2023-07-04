@@ -28,5 +28,16 @@ namespace LeetCodeTest.EasyProblems
             bool actual = backspaceStringCompareProblem.BackspaceStringCompare(string1, string2);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        [DataRow("ab#c", "ad#c", true)]
+        [DataRow("ab##", "c#d#", true)]
+        [DataRow("a#c", "b", false)]
+        [DataRow("a##c", "#a#c", true)]
+        public void BackspaceStringCompare2(string string1, string string2, bool expected)
+        {
+            bool actual = backspaceStringCompareProblem.BackspaceStringCompare2(string1, string2);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
