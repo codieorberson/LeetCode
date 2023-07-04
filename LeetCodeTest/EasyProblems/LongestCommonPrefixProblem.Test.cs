@@ -10,7 +10,6 @@ namespace LeetCodeTest.EasyProblems
     [TestClass]
     public class LongestCommonPrefixProblemTest
     {
-
         LongestCommonPrefixProblem longestCommonPrefixProblem;
 
         [TestInitialize]
@@ -20,7 +19,7 @@ namespace LeetCodeTest.EasyProblems
         }
 
         [TestMethod]
-        [DataRow(new string[] { "flower", "flow", "flight" }, "fl")]
+        [DataRow(new string[] { "flourish", "flower", "flow", "flight", "flag", "flash", "flame", "flavor", "flair", "flange" }, "fl")]
         [DataRow(new string[] { "dog", "racecar", "car" }, "")]
         public void LongestCommonPrefix(string[] words, string expected)
         {
