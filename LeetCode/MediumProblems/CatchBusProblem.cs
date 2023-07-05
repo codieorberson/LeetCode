@@ -1,4 +1,6 @@
-﻿namespace LeetCode.MediumProblems
+﻿using System.Linq;
+
+namespace LeetCode.MediumProblems
 {
     public class CatchBusProblem
     {
@@ -31,11 +33,74 @@
                 });
             }
 
-            int answer = DeclareLatestTime(busPassengers);
+            int answer = DeclareLatestTime(busPassengers, allPassengers);
             return answer;
         }
+        public int DeclareLatestTime(List<BusPassenger> busPassengers, int[] allPassenegers)
+        {
+            int latestTime = -1;
+            int capacity = busPassengers[0].capacity;
 
-        public int DeclareLatestTime(List<BusPassenger> busPassengers)
+            bool fullBus = false;
+
+
+            
+            for(int i = busPassengers.Count -1; i>=0; i--)
+            {
+                List<int> currentBusPassengers = busPassengers[i].passengers;
+                if (currentBusPassengers.Count == 0) return busPassengers[i].bus;
+                else if (!fullBus && currentBusPassengers.Count == capacity)
+                {
+                    int? caughtBus = UserCatchFullBus(currentBusPassengers, busPassengers[i].bus);
+                    if (caughtBus != null && !allPassenegers.Contains((int)caughtBus))
+                    {
+                        return (int)caughtBus;
+                    }
+
+                    fullBus = true;
+                }
+                else
+                {
+                    int? caughtBus = UserSitAnywhere(currentBusPassengers, busPassengers[i].bus);
+                    if (caughtBus != null && !allPassenegers.Contains((int)caughtBus)) return (int)caughtBus;
+                    fullBus = true;
+                }
+            }
+
+            return -1;
+        }
+
+        public int? UserSitAnywhere(List<int> currentPassengers, int busCaughtTime)
+        {
+            int? returnValue = null;
+            currentPassengers = currentPassengers.OrderByDescending(x => x).ToList();
+            foreach (int passenger in currentPassengers)
+            {
+                if (passenger != busCaughtTime) return busCaughtTime;
+                else busCaughtTime--;
+            }
+            return returnValue;
+
+        }
+        public int? UserCatchFullBus(List<int> currentPassengers, int busCaughtTime)
+        {
+            int? returnValue = null;
+            currentPassengers = currentPassengers.OrderByDescending(x => x).ToList();
+
+            int firstPassenger = currentPassengers[currentPassengers.Count - 1];
+            int tempBusCaughtTime = -1;
+            foreach (int passenger in currentPassengers)
+            {
+                if (tempBusCaughtTime == -1) tempBusCaughtTime = passenger - 1;
+                else if (tempBusCaughtTime == passenger) tempBusCaughtTime--;
+                else return tempBusCaughtTime;
+            }
+            if (tempBusCaughtTime < firstPassenger) return tempBusCaughtTime;
+
+            return returnValue;
+
+        } 
+        public int DeclareLatestTime2(List<BusPassenger> busPassengers)
         {
             BusPassenger lastBus = busPassengers.Last();
 
