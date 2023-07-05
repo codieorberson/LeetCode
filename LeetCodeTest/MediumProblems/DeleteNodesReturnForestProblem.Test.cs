@@ -27,10 +27,10 @@ namespace LeetCodeTest.MediumProblems
 
         private TreeNode? GenerateTreeNode(int[] rootNodes)
         {
-            return CreateBinaryTree(rootNodes, 0);
+            return CreateBinaryTree(rootNodes);
         }
 
-        private TreeNode? CreateBinaryTree(int[] nodes, int index)
+        private TreeNode? CreateBinaryTree(int[] nodes, int index = 0)
         {
             if (index >= nodes.Length || nodes[index] == 0)
             {
