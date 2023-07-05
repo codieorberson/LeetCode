@@ -25,7 +25,7 @@ namespace LeetCode.HardProblems
             if (node == null) return;
             if (node.val == value)
             {
-                node = null; // This will remove the node, but will not reattach the children if there are any
+                node = null;
             }
             else
             {
