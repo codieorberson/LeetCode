@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using LeetCode.MediumProblems;
 using LeetCode.Models;
 
@@ -27,21 +28,8 @@ namespace LeetCodeTest.MediumProblems
 
         private TreeNode? GenerateTreeNode(int[] rootNodes)
         {
-            return CreateBinaryTree(rootNodes);
+            return new TreeNode().CreateBinaryTree(rootNodes);
         }
 
-        private TreeNode? CreateBinaryTree(int[] nodes, int index = 0)
-        {
-            if (index >= nodes.Length || nodes[index] == 0)
-            {
-                return null;
-            }
-
-            TreeNode node = new TreeNode(nodes[index]);
-            node.left = CreateBinaryTree(nodes, 2 * index + 1);
-            node.right = CreateBinaryTree(nodes, 2 * index + 2);
-
-            return node;
-        }
     }
 }

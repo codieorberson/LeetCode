@@ -26,26 +26,11 @@ namespace LeetCodeTest.HardProblems
             int[] nodes = { 5, 8, 9, 2, 1, 3, 7, 4, 6 };
             int[] expected = { 3, 2, 3, 2 };
 
-            TreeNode treeNode = CreateBinaryTree(nodes);
+            TreeNode treeNode = new TreeNode().CreateBinaryTree(nodes);
             int[] actual = heightBinaryTreeProblem.GetHeightWithSubtreeRemoval(treeNode, queries);
 
             CollectionAssert.AreEquivalent(expected, actual);
 
         }
-
-        private TreeNode? CreateBinaryTree(int[] nodes, int index = 0)
-        {
-            if (index >= nodes.Length || nodes[index] == 0)
-            {
-                return null;
-            }
-
-            TreeNode node = new TreeNode(nodes[index]);
-            node.left = CreateBinaryTree(nodes, 2 * index + 1);
-            node.right = CreateBinaryTree(nodes, 2 * index + 2);
-
-            return node;
-        }
-
     }
 }

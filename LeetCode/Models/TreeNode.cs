@@ -11,5 +11,18 @@
             this.left = left;
             this.right = right;
         }
+        public TreeNode? CreateBinaryTree(int[] nodes, int index = 0)
+        {
+            if (index >= nodes.Length || nodes[index] == 0)
+            {
+                return null;
+            }
+
+            TreeNode node = new TreeNode(nodes[index]);
+            node.left = CreateBinaryTree(nodes, 2 * index + 1);
+            node.right = CreateBinaryTree(nodes, 2 * index + 2);
+
+            return node;
+        }
     }
 }
