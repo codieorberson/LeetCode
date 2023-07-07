@@ -8,77 +8,72 @@ namespace LeetCode.EasyProblems
         public class PairedTeam
         {
             public List<string> teams;
-            public int index;
         }
 
-        public class Teams
+        public class Team
         {
             public string name;
         }
 
         public List<PairedTeam> alliances;
-        public Dictionary<string, string> parents;
+        public List<PairedTeam> associations;
 
-        public Alliances(List<PairedTeam> pairedTeams)
+
+        public void setAlliances(List<PairedTeam> pairedTeams)
         {
-            parents = new Dictionary<string, string>();
-            alliances = pairedTeams;
-
-            int index = 0;
-            foreach(var pairedTeam in pairedTeams)
+            alliances = pairedTeams.OrderBy(x => x.teams.Min()).ToList();
+            List<PairedTeam> newAssociations = new();
+            for(int i =0; i< alliances.Count; i++)
             {
-                alliances.Add(new PairedTeam()
+                List<string> newTeam = new()
                 {
-                    teams = pairedTeam.teams,
-                    index = index
-                });
-                index++;
-            }
+                    alliances[i].teams[0],
+                    alliances[i].teams[1]
+                };
 
-            foreach (var pairedTeam in pairedTeams)
-            {
-                string parent = pairedTeam.teams[0];
-                foreach (var team in pairedTeam.teams)
+               
+                List<PairedTeam> otherAlliances = alliances.GetRange(i + 1, alliances.Count - i-1);
+                foreach(var otherAlliance in otherAlliances)
                 {
-                    if (!parents.ContainsKey(team))
+                    if (otherAlliance.teams.Intersect(newTeam).Any())
                     {
-                        parents[team] = parent;
-                    }
-                    else
-                    {
-                        parents[team] = Find(parent);
+                        newTeam.AddRange(otherAlliance.teams);
                     }
                 }
+
+                newAssociations.Add(new PairedTeam()
+                {
+                    teams = newTeam.Distinct().ToList(),
+                });
             }
+            associations = newAssociations;
+
         }
 
        
 
-        public bool isAlliance(Teams team1, Teams team2)
+        public bool isAlliance(Team team1, Team team2)
         {
-            foreach(var alliance in alliances)
+            return PairTeamsContains(team1, team2, alliances);
+        }
+
+        
+
+        public bool isAssociated(Team team1, Team team2)
+        {
+            return PairTeamsContains(team1, team2, associations);
+           
+        }
+
+        private bool PairTeamsContains(Team team1, Team team2, List<PairedTeam> groups) {
+        
+            foreach(PairedTeam group in groups)
             {
-                if(alliance.teams.Contains(team1.name) && alliance.teams.Contains(team2.name)) return true;
+                if(group.teams.Contains(team1.name) && group.teams.Contains(team2.name)) return true;
             }
             return false;
         }
 
-        private string Find(string team)
-        {
-            if (parents[team] != team)
-            {
-                parents[team] = Find(parents[team]);
-            }
-            return parents[team];
-        }
-
-        public bool isAssociated(Teams team1, Teams team2)
-        {
-            if (!parents.ContainsKey(team1.name) || !parents.ContainsKey(team2.name))
-            {
-                return false;
-            }
-            return Find(team1.name) == Find(team2.name);
-        }
+        
     }
 }
