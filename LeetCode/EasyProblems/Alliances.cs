@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using static LeetCode.EasyProblems.Alliances;
 
 namespace LeetCode.EasyProblems
@@ -54,26 +55,15 @@ namespace LeetCode.EasyProblems
 
         public bool isAlliance(Team team1, Team team2)
         {
-            return PairTeamsContains(team1, team2, alliances);
+            return alliances.Where(x => x.teams.Contains(team1.name)).Where(x => x.teams.Contains(team2.name)).Any();
         }
 
         
 
         public bool isAssociated(Team team1, Team team2)
         {
-            return PairTeamsContains(team1, team2, associations);
-           
-        }
+            return associations.Where(x => x.teams.Contains(team1.name)).Where(x => x.teams.Contains(team2.name)).Any();
 
-        private bool PairTeamsContains(Team team1, Team team2, List<PairedTeam> groups) {
-        
-            foreach(PairedTeam group in groups)
-            {
-                if(group.teams.Contains(team1.name) && group.teams.Contains(team2.name)) return true;
-            }
-            return false;
         }
-
-        
     }
 }
