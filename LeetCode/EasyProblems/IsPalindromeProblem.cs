@@ -29,5 +29,12 @@
             bool equal = order.SequenceEqual(reversedOrder);
             return equal;
         }
+
+        public bool IsPalindrome3(int x)
+        {
+            string value = x.ToString();
+            string reverseValue = new string(value.Reverse().ToArray());
+            return value == reverseValue;
+        }
     }
 }
