@@ -7,35 +7,29 @@
 
         public int NeedleHaystack(string needle, string haystack)
         {
-            if (!haystack.Contains(needle))
+            for (int i = 0; i < haystack.Length; i++)
             {
-                return -1;
-            }
-
-            int solutionIndex = 0;
-            int needleIndex = 0;
-            int needleLength = needle.Length -1;
-            for(int i = 0; i< haystack.Length; i++ )
-            {
-                if (haystack[i] == needle[needleIndex] && needleLength == needleIndex)
+                bool exists = true;
+                for (int j = 0; j < needle.Length; j++)
                 {
-                    return solutionIndex;
-                }
-                else if (haystack[i] == needle[needleIndex])
-                {
-                    if (needleIndex == 0)
+                    if (haystack[i + j] != needle[j])
                     {
-                        solutionIndex = i;
+                        exists = false; break;
                     }
-                    needleIndex++;
                 }
-                else if (haystack[i] != needle[needleIndex])
+                if (exists)
                 {
-                    needleIndex = 0;
-                    solutionIndex = i + 1;
+                    return i;
                 }
             }
-            return solutionIndex;
+            return -1;
         }
+
+        public int NeedleHaystack2(string needle, string haystack)
+        {
+            return haystack.IndexOf(needle);
+        }
+
+        
     }
 }
