@@ -7,6 +7,19 @@
 
         public int GetPossibleRoutes(int stairs)
         {
+            Dictionary<int, int> mapping = new Dictionary<int, int>();
+            mapping.Add(1, 1);
+            mapping.Add(2, 2);
+
+            for (int i = 3; i <= stairs; i++)
+            {
+                mapping[i] = mapping[i - 1] + mapping[i - 2];
+            }
+            return mapping[stairs];
+        }
+
+        public int GetPossibleRoutes2(int stairs)
+        {
             if (stairs <= 3) return stairs;
 
             int routesTwoAgo = 2;
@@ -22,5 +35,7 @@
             }
             return currentRoutes;
         }
+
+        
     }
 }
