@@ -20,7 +20,7 @@ namespace LeetCodeTest.EasyProblems
         [DataRow(8, 2)]
         public void GetSqrtForInt(int number, int expected)
         {
-            var actual = sqrtProblem.GetSqrtForInt(number);
+            var actual = sqrtProblem.GetSqrtForInt2(number);
             Assert.AreEqual(expected, actual);
         }
     }
